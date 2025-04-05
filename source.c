@@ -257,8 +257,8 @@ float findx(Token *postfix){
         result = newResult;
     }
     result = newResult;
-    printf("[STOP] Newton\n");
-    printf("[Return Newton] = %f\n", result);
+    //printf("[STOP] Newton\n");
+    //printf("[Return Newton] = %f\n", result);
     return result;
 }
 
@@ -295,18 +295,17 @@ float findxByChiaDoi(Token *postfix){
         } else {
             ng2 = average;
         }
-        printf("ng1: %f with f = %f, ng2: %f with f= %f\n", ng1, evaluatePostfix(postfix, ng1), ng2, evaluatePostfix(postfix, ng2));
+        //printf("ng1: %f with f = %f, ng2: %f with f= %f\n", ng1, evaluatePostfix(postfix, ng1), ng2, evaluatePostfix(postfix, ng2));
         result = average;
-        printf("result: %f", result);
+        //printf("result: %f", result);
     }
-    printf("[result]: %f", result);
+    //printf("[result]: %f", result);
     return result;
 }
 
 void *findNewton(void *arg){
     ThreadData *data = (ThreadData *)arg;
     data->result = findx(data->postfix);
-    printf("Done by newton \n");
     pthread_mutex_lock(&mutex);
     if (!found)
     {
@@ -321,7 +320,6 @@ void *findNewton(void *arg){
 void *findChiaDoi(void *arg){
     ThreadData *data = (ThreadData *)arg;
     data->result = findxByChiaDoi(data->postfix);
-    printf("Done by Chia doi \n");
     pthread_mutex_lock(&mutex);
     if (!found)
     {
@@ -430,9 +428,9 @@ int main(){
         }
         clock_gettime(CLOCK_MONOTONIC, &end);
         double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
-        printf("Time to find x is: %f second\n\n", elapsed);
-
-        printf("Result is:  %.2f là: %.3f\n", best_result, evaluatePostfix(output, best_result));
+        
+        printf("Time to find x is: %f second\n", elapsed);
+        printf("Result is:  %.2f and F(x = %.2f) = %.3f\n", best_result, best_result, evaluatePostfix(output, best_result));
     }
     /*
     float Ng = 0.0;
